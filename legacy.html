@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LEGACY MUSEUM • Heroes & Martyrs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Cinzel:wght@400;700&amp;display=swap');
+    body { font-family: 'Cinzel', serif; background: #1a120b; color: #f5e8c7; }
+    .vintage-text { font-family: 'Playfair Display', serif; }
+    .museum-bg { background: linear-gradient(rgba(26,18,11,0.96), rgba(26,18,11,0.96)), url('https://picsum.photos/id/1015/2000/1200') center/cover; }
+    .card { transition: all 0.5s ease; border: 5px solid #8c6f4e; background: #2c2118; }
+    .card:hover { transform: scale(1.03) rotate(0.8deg); box-shadow: 0 0 60px rgba(140,111,78,0.85); }
+    .aged-paper { background: #f5e8c7; color: #3c2f1e; box-shadow: inset 0 0 90px rgba(0,0,0,0.6); border: 8px solid #8c6f4e; }
+    .section-title { position: relative; display: inline-block; }
+    .section-title:after { content: ''; position: absolute; width: 70%; height: 3px; background: linear-gradient(to right, #8c6f4e, #d4a017); bottom: -12px; left: 15%; }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+  <nav class="fixed top-0 w-full bg-[#2c2118]/95 backdrop-blur-md z-50 border-b border-[#8c6f4e]">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-landmark text-4xl text-[#d4a017]"></i>
+        <h1 class="vintage-text text-4xl tracking-widest text-[#d4a017]">LEGACY</h1>
+      </div>
+      <div class="hidden md:flex gap-10 text-sm tracking-widest font-medium">
+        <a href="#home" class="hover:text-[#d4a017] transition">HOME</a>
+        <a href="#heroes" class="hover:text-[#d4a017] transition">GALLERY</a>
+        <a href="#about" class="hover:text-[#d4a017] transition">ABOUT US</a>
+        <a href="#vision" class="hover:text-[#d4a017] transition">OUR VISION</a>
+        <a href="#contact" class="hover:text-[#d4a017] transition">CONTACT</a>
+      </div>
+      <button onclick="toggleMobileMenu()" class="md:hidden text-3xl text-[#d4a017]"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-[#2c2118] px-6 py-6 border-t border-[#8c6f4e]">
+      <a href="#home" onclick="toggleMobileMenu()" class="block py-4 hover:text-[#d4a017]">HOME</a>
+      <a href="#heroes" onclick="toggleMobileMenu()" class="block py-4 hover:text-[#d4a017]">GALLERY</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="block py-4 hover:text-[#d4a017]">ABOUT US</a>
+      <a href="#vision" onclick="toggleMobileMenu()" class="block py-4 hover:text-[#d4a017]">OUR VISION</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="block py-4 hover:text-[#d4a017]">CONTACT</a>
+    </div>
+  </nav>
+
+  <section id="home" class="museum-bg h-screen flex items-center relative">
+    <div class="max-w-5xl mx-auto px-6 text-center z-10">
+      <div class="aged-paper inline-block px-14 py-10 mb-12 rounded border-4 border-[#8c6f4e] shadow-2xl">
+        <h2 class="vintage-text text-7xl md:text-8xl leading-none tracking-tighter mb-4 text-[#3c2f1e]">THE UNCOVERED TRUTH</h2>
+        <p class="text-3xl text-[#8c6f4e] italic tracking-wide">Digital Museum of Great Heroes &amp; Martyrs</p>
+      </div>
+      <button onclick="speakWelcome()" class="group inline-flex items-center gap-6 bg-[#3c2f1e] hover:bg-[#d4a017] hover:text-[#3c2f1e] border-4 border-[#d4a017] px-20 py-8 text-2xl font-bold transition-all active:scale-95">
+        <i class="fa-solid fa-volume-high text-4xl group-active:animate-pulse"></i>
+        ENTER THE MUSEUM
+      </button>
+      <p class="mt-10 text-[#8c6f4e] text-sm tracking-[4px]">Click to hear the voice of history</p>
+    </div>
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 text-[#d4a017] animate-bounce"><i class="fa-solid fa-chevron-down text-4xl"></i></div>
+  </section>
+
+  <section id="heroes" class="py-24 bg-[#2c2118]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h3 class="vintage-text text-6xl section-title text-[#d4a017]">Heroes &amp; Martyrs</h3>
+        <p class="text-[#8c6f4e] mt-4 text-xl">10 Countries • 10 Heroes Each • Full Stories</p>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center mb-12" id="countryTabs"></div>
+      <div id="heroesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8"></div>
+    </div>
+  </section>
+
+  <section id="about" class="py-24 bg-[#1a120b]">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h3 class="vintage-text text-6xl section-title text-[#d4a017] mb-12">About Us</h3>
+      <div class="aged-paper p-12 rounded border-2 border-[#8c6f4e] text-[#3c2f1e] max-w-3xl mx-auto">
+        <p class="text-lg leading-relaxed">This digital museum was created by me, Gaurav Kunwar — a young student from Butwal, Nepal learning about cyber security and deeply interested in farming.</p>
+        <p class="mt-6 text-lg leading-relaxed">I wanted to honor our great heroes and martyrs who sacrificed everything for freedom, unity, and justice. Their stories deserve to be remembered forever.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="vision" class="py-24 bg-[#2c2118]">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h3 class="vintage-text text-6xl section-title text-[#d4a017] mb-12">Our Vision</h3>
+          <div class="space-y-8 text-lg">
+            <p class="text-[#f5e8c7]">We remember every hero who sacrificed their life, freedom, and comfort so that we could stand here today in peace and dignity.</p>
+            <p class="text-[#f5e8c7]">Their courage, reforms, and ultimate sacrifices built the world we live in. This digital museum keeps their stories alive for future generations.</p>
+            <p class="text-[#f5e8c7]">May their legacy inspire us to be brave, just, and united.</p>
+          </div>
+        </div>
+        <div class="aged-paper p-12 border-4 border-[#8c6f4e] text-center text-[#3c2f1e]">
+          <div class="text-7xl mb-8">🇳🇵 🇮🇳 🇺🇸 🇿🇦 🇫🇷 🇬🇧 🇯🇵 🇧🇷 🇲🇽 🇨🇳</div>
+          <p class="text-3xl font-medium">10 Countries • 100 Legends</p>
+          <p class="mt-6 italic">Their blood wrote history. Their courage lights our future.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-24 bg-[#1a120b]">
+    <div class="max-w-2xl mx-auto px-6">
+      <h3 class="vintage-text text-6xl section-title text-[#d4a017] text-center mb-12">Get In Touch</h3>
+      <form onsubmit="handleSubmit(event)" class="aged-paper p-10 border-4 border-[#8c6f4e]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <input type="text" placeholder="Your Name" required class="bg-transparent border-b-2 border-[#3c2f1e] focus:border-[#d4a017] py-4 text-lg outline-none">
+          <input type="email" placeholder="Your Email" required class="bg-transparent border-b-2 border-[#3c2f1e] focus:border-[#d4a017] py-4 text-lg outline-none">
+        </div>
+        <textarea placeholder="Your Message, Suggestions, or New Heroes/Countries to Add..." rows="6" required class="w-full bg-transparent border-b-2 border-[#3c2f1e] focus:border-[#d4a017] py-4 mt-8 text-lg outline-none resize-none"></textarea>
+        <button type="submit" class="mt-10 w-full bg-[#d4a017] hover:bg-[#3c2f1e] hover:text-[#d4a017] text-[#3c2f1e] font-bold py-6 text-xl transition">SEND MESSAGE</button>
+      </form>
+      <div class="aged-paper mt-12 p-8 text-center text-[#3c2f1e]">
+        <p class="text-lg">For more information or suggestions:</p>
+        <p class="mt-4 text-xl font-medium">Email us at: <a href="mailto:kunwargaurav832@gmail.com" class="underline hover:text-[#d4a017]">kunwargaurav832@gmail.com</a></p>
+        <p class="text-sm mt-6">We welcome your ideas to add more countries and heroes. Together we keep their legacy alive.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-[#1a120b] py-12 text-center text-[#8c6f4e] border-t border-[#8c6f4e]">
+    Made with respect in Butwal, Nepal • Copyright reserved 2026 © Gaurav Kunwar
+  </footer>
+
+  <div id="heroModal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-[9999] p-6">
+    <div class="aged-paper max-w-3xl w-full border-8 border-[#8c6f4e] overflow-hidden">
+      <div class="relative">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-4xl text-[#3c2f1e] hover:text-red-800 z-20">✕</button>
+        <img id="modalImage" class="w-full h-80 object-cover border-b-8 border-[#8c6f4e]" onerror="this.src='https://picsum.photos/id/1015/800/600';">
+        
+        <div class="p-12">
+          <div id="modalCountry" class="flex items-center gap-4 text-3xl mb-4"></div>
+          <h2 id="modalName" class="vintage-text text-5xl text-[#3c2f1e] font-bold"></h2>
+          
+          <div class="my-8 h-px bg-[#8c6f4e]"></div>
+          
+          <div id="modalDesc" class="text-[#3c2f1e] text-lg leading-relaxed"></div>
+          
+          <div class="mt-10 bg-[#2c2118] p-8 border-l-8 border-[#d4a017]">
+            <p id="modalQuote" class="italic text-xl text-[#d4a017]"></p>
+          </div>
+        </div>
+        
+        <button onclick="closeModal()" class="w-full bg-[#d4a017] hover:bg-[#3c2f1e] text-[#3c2f1e] hover:text-[#d4a017] py-5 text-xl font-bold transition">
+          ← BACK TO GALLERY
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const heroesData = {
+      "Nepal": [
+        { name: "Prithvi Narayan Shah", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Prithvi_Narayan_Shah.jpg/800px-Prithvi_Narayan_Shah.jpg", 
+          desc: "Prithvi Narayan Shah was born in 1723 in Gorkha, Nepal. He was a visionary king who unified modern Nepal. From a small principality, he led clever military campaigns and diplomacy to bring dozens of fragmented kingdoms together into one sovereign nation by 1768. He worked hard to create a strong central government and promoted harmony among different castes and ethnic groups so that all could live together peacefully. He devoted his entire life to constant warfare and strategic alliances, risking his kingdom and personal safety for the dream of a united Nepal. He died in 1775 in Devghat.", 
+          quote: "Nepal is a garden of four varnas and thirty-six castes. Let all live in harmony." },
+        { name: "Bhimsen Thapa", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Bhimsen_Thapa.jpg/800px-Bhimsen_Thapa.jpg", 
+          desc: "Bhimsen Thapa was born in 1775 in Borlang, Nepal. He served as the first Prime Minister and was a strong defender of the nation. He modernized the Nepali army and administration during a very critical time when foreign powers were threatening the country. He introduced important military reforms, built roads, and strengthened central authority to protect Nepal from outside threats. After losing power due to political rivals, he was imprisoned for many years and died in exile. His life showed true dedication to Nepal's independence.", 
+          quote: "We shall never bow to foreign domination." },
+        { name: "Balbhadra Kunwar", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Balbhadra_Kunwar.jpg/800px-Balbhadra_Kunwar.jpg", 
+          desc: "Balbhadra Kunwar was born in 1792 in Nepal. He was a brave Gorkhali captain who became famous for his fearless defense during the Anglo-Nepalese War. He defended the Nalapani fort with only a small number of soldiers against a much larger British force, using clever guerrilla tactics. His courage inspired many and showed the world the spirit of Nepali warriors. He fought until the last defender fell. He died in battle in 1823, leaving behind a legacy of bravery that is still remembered today.", 
+          quote: "We fight till the last drop of blood." },
+        { name: "Amar Singh Thapa", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Amar_Singh_Thapa.jpg/800px-Amar_Singh_Thapa.jpg", 
+          desc: "Amar Singh Thapa was born in 1759 in Nepal. He was a great general who led campaigns on the western front and expanded Nepal's territories. He strengthened border defenses and brought strict military discipline to the army. When Nepal lost some territories after hard battles, he felt deep pain for his comrades and the nation. He took his own life in 1816 after the difficult losses. His sacrifice and leadership are still honored as symbols of loyalty and courage.", 
+          quote: "Victory or death - no surrender." },
+        { name: "Laxmi Prasad Devkota", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Mahakavi_laxmi_prasad_devkota.jpg/800px-Mahakavi_laxmi_prasad_devkota.jpg", 
+          desc: "Laxmi Prasad Devkota was born in 1909 in Kathmandu, Nepal. He is known as Mahakavi, the great poet of Nepal. He wrote powerful epic poems like Muna Madan that touched the hearts of common people. Through his writing he criticized caste discrimination and strongly promoted education and social awareness. He lived a life of poverty and suffered from chronic illness, but he never stopped creating literature that became the mirror of Nepali society. He died in 1959 in Kathmandu.", 
+          quote: "Literature is the mirror of society." },
+        { name: "Pushpa Lal Shrestha", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Pushpa_Lal_Shrestha.jpg/800px-Pushpa_Lal_Shrestha.jpg", 
+          desc: "Pushpa Lal Shrestha was born in 1924 in Kathmandu, Nepal. He was the founder of the Communist Party of Nepal and a key leader in the progressive movement. He organized workers and fought for democracy and rights of ordinary people. His work laid the foundation for political awareness and workers' rights in the country. He spent decades in exile facing imprisonment and threats, but he never gave up his dream of a better Nepal. He died in 1978 while still in exile.", 
+          quote: "The people shall rise." },
+        { name: "Ganga Lal Shrestha", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Ganga_lal_shrestha.jpg/800px-Ganga_lal_shrestha.jpg", 
+          desc: "Ganga Lal Shrestha was born in 1917 in Kathmandu, Nepal. He was a young revolutionary who bravely fought against the Rana autocracy. At a very young age he demanded democratic rights and freedom for the people. He was arrested and executed by firing squad when he was only 24 years old. His short but courageous life became a powerful symbol that freedom is worth dying for. He is remembered as a martyr who gave everything for Nepal's democracy.", 
+          quote: "Freedom is worth dying for." },
+        { name: "Arniko", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Arniko.jpg/800px-Arniko.jpg", 
+          desc: "Arniko was born in 1245 in Nepal. He was a master architect and artist who left his homeland at a young age to work in Tibet and China. He built many famous structures and introduced the beautiful Nepali architectural style to foreign lands. His work showed that art knows no borders. He spent his life far from family and home, dedicating himself to creating beauty. He died in 1306 in China.", 
+          quote: "Art knows no borders." },
+        { name: "Bhanubhakta Acharya", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Bhanubhakta_Acharya.jpg/800px-Bhanubhakta_Acharya.jpg", 
+          desc: "Bhanubhakta Acharya was born in 1814 in Tanahun, Nepal. He is known as Adikavi, the first poet of modern Nepali literature. He translated the great Ramayana into simple Nepali language so that ordinary people could read and enjoy it. His work made literature accessible to everyone and helped strengthen Nepali language and culture. He lived a simple life full of hardships but never stopped writing. He died in 1868 in Tanahun.", 
+          quote: "Language is the soul of a nation." },
+        { name: "Siddhi Mangal", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Siddhi_Mangal.jpg/800px-Siddhi_Mangal.jpg", 
+          desc: "Siddhi Mangal was born in the 1910s in Nepal. He was a brave freedom fighter who stood against the Rana regime. He worked hard to bring democracy and end autocratic rule. His sacrifice and courage helped pave the way for a free Nepal. He gave his life for the cause of freedom and is remembered as a true martyr. His story inspires all who fight for justice.", 
+          quote: "Democracy is our right." }
+      ],
+      "India": [
+        { name: "Mahatma Gandhi", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/800px-Mahatma-Gandhi%2C_studio%2C_1931.jpg", 
+          desc: "Mahatma Gandhi was a well-known leader in India who was born in 1869 in Porbandar. He led the independence movement using non-violent resistance and taught the world the power of truth and peaceful protest. He organized the Salt March and Quit India Movement, promoted self-reliance, and worked for harmony between all communities. He was imprisoned many times and finally assassinated in 1948. His life and teachings continue to inspire people fighting for justice everywhere.", 
+          quote: "Be the change you wish to see in the world." },
+        { name: "Bhagat Singh", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Bhagat_Singh_1929.jpg/800px-Bhagat_Singh_1929.jpg", 
+          desc: "Bhagat Singh was a fearless revolutionary born in 1907 in Banga, India. He believed in armed struggle against British rule and bombed the Central Legislative Assembly to protest unjust laws. He wrote powerful articles that inspired socialist revolution among the youth. He was hanged by the British at the young age of 23. His courage made him a symbol of youth power and the fight for freedom.", 
+          quote: "Bomb and pistol are not the only weapons." },
+        { name: "Subhas Chandra Bose", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Subhas_Chandra_Bose.jpg/800px-Subhas_Chandra_Bose.jpg", 
+          desc: "Subhas Chandra Bose, known as Netaji, was born in 1897 in Cuttack, India. He formed the Azad Hind Fauj to fight for independence through armed means and created a women's regiment. He worked tirelessly to free India from British rule. He died in a plane crash in 1945 while continuing the struggle. His call 'Give me blood and I will give you freedom' still motivates millions.", 
+          quote: "Give me blood and I will give you freedom." },
+        { name: "Sardar Vallabhbhai Patel", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Sardar_Patel.jpg/800px-Sardar_Patel.jpg", 
+          desc: "Sardar Vallabhbhai Patel was born in 1875 in Nadiad, India. He was known as the Iron Man of India because he unified 565 princely states into one modern nation after independence. He worked day and night to integrate all parts of India. He faced huge challenges but never gave up. He worked so hard that he died from overwork in 1950. His contribution made India strong and united.", 
+          quote: "Every Indian should forget he is a Rajput or Sikh." },
+        { name: "Rani Lakshmibai", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Rani_Lakshmibai.jpg/800px-Rani_Lakshmibai.jpg", 
+          desc: "Rani Lakshmibai was born in 1828 in Varanasi, India. She was the brave warrior queen of Jhansi who fought against British rule in the 1857 Revolt. She led her soldiers on horseback with a sword in hand and refused to surrender her kingdom. She fought for women's rights and against unfair annexation policies. She died fighting on the battlefield in 1858. She remains a symbol of courage and resistance.", 
+          quote: "I shall not surrender my Jhansi." },
+        { name: "Dr. B.R. Ambedkar", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/B._R._Ambedkar.jpg/800px-B._R._Ambedkar.jpg", 
+          desc: "Dr. B.R. Ambedkar was born in 1891 in Mhow, India. He was the architect of the Indian Constitution and a great fighter against caste discrimination. He worked all his life for social justice, education, and equality for the oppressed. He faced severe social boycott but never stopped his struggle. He drafted the Constitution that gave rights to all citizens. He died in 1956 in Delhi.", 
+          quote: "Educate, Agitate, Organize." },
+        { name: "Jawaharlal Nehru", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Jawaharlal_Nehru.jpg/800px-Jawaharlal_Nehru.jpg", 
+          desc: "Jawaharlal Nehru was born in 1889 in Allahabad, India. He was the first Prime Minister of independent India and shaped the country's modern democratic and secular foundation. He spent many years in prison during the freedom struggle. He promoted science, industry, and non-alignment in foreign policy. He believed the future belongs to the youth. He died in 1964 in New Delhi.", 
+          quote: "The future belongs to the youth." },
+        { name: "Sarojini Naidu", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Sarojini_Naidu.jpg/800px-Sarojini_Naidu.jpg", 
+          desc: "Sarojini Naidu was born in 1879 in Hyderabad, India. She was known as the Nightingale of India because of her beautiful poetry and powerful speeches. She was a freedom fighter and fought for women's rights. She dedicated her entire life to the independence movement. She became the first woman governor of an Indian state. She died in 1949 in Lucknow.", 
+          quote: "We are the children of the motherland." },
+        { name: "Chandra Shekhar Azad", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Chandra_Shekhar_Azad.jpg/800px-Chandra_Shekhar_Azad.jpg", 
+          desc: "Chandra Shekhar Azad was born in 1906 in Bhavra, India. He was a revolutionary who vowed never to be captured alive by the British. He led the Hindustan Socialist Republican Association and organized armed resistance. He fought bravely for freedom. When surrounded by police, he shot himself to avoid arrest. He died in 1931 in Allahabad. He is remembered as a symbol of fearless patriotism.", 
+          quote: "I am Azad, I will remain Azad." },
+        { name: "Lala Lajpat Rai", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Lala_Lajpat_Rai.jpg/800px-Lala_Lajpat_Rai.jpg", 
+          desc: "Lala Lajpat Rai was born in 1865 in Dhudike, India. He was called Punjab Kesari for his fearless leadership in the freedom movement. He led the Non-Cooperation Movement and awakened nationalist feelings in Punjab. He was severely injured in a police lathi charge during a protest. He died from those injuries in 1928 in Lahore. His sacrifice strengthened the freedom struggle.", 
+          quote: "Every blow aimed at me is a nail in the coffin of British rule." }
+      ],
+      "USA": [
+        { name: "Martin Luther King Jr.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Martin_Luther_King_Jr._with_medals.jpg/800px-Martin_Luther_King_Jr._with_medals.jpg", 
+          desc: "Martin Luther King Jr. was born in 1929 in Atlanta, USA. He was a great civil rights leader who fought for racial equality using peaceful methods. He delivered the famous 'I Have a Dream' speech and led many marches for justice. His work helped pass laws for voting rights and equality. He was assassinated in 1968 while supporting striking workers. His dream and courage continue to inspire the world.", 
+          quote: "I have a dream..." },
+        { name: "Abraham Lincoln", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/800px-Abraham_Lincoln_O-77_matte_collodion_print.jpg", 
+          desc: "Abraham Lincoln was born in 1809 in Hodgenville, USA. He was the president who preserved the Union during the Civil War and ended slavery. He issued the Emancipation Proclamation that freed millions of slaves. He faced huge challenges and personal loss but never gave up. He was assassinated in 1865 shortly after the war ended. He is remembered as one of the greatest leaders in American history.", 
+          quote: "Government of the people, by the people." },
+        { name: "George Washington", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg/800px-Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg", 
+          desc: "George Washington was born in 1732 in Westmoreland County, USA. He led the Continental Army to victory in the Revolutionary War and became the first President of the United States. He established important democratic traditions and stepped down after two terms, setting an example of peaceful power transfer. He risked his life many times for the birth of the nation. He died in 1799 at Mount Vernon.", 
+          quote: "Liberty and justice for all." },
+        { name: "Harriet Tubman", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Harriet_Tubman_photograph_%28restored%29.jpg/800px-Harriet_Tubman_photograph_%28restored%29.jpg", 
+          desc: "Harriet Tubman was born in 1822 in Dorchester County, USA. She escaped slavery and then risked her life 19 times to lead hundreds of other slaves to freedom through the Underground Railroad. She was a brave abolitionist who fought for justice. She continued working for women's rights and the Union army during the Civil War. She died in 1913 in Auburn. She is a true hero of freedom.", 
+          quote: "Every great dream begins with a dreamer." },
+        { name: "Rosa Parks", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Rosa_Parks_Bust.jpg/800px-Rosa_Parks_Bust.jpg", 
+          desc: "Rosa Parks was born in 1913 in Tuskegee, USA. She is known as the mother of the civil rights movement because she refused to give up her seat on a bus to a white passenger. Her simple act of courage sparked the Montgomery Bus Boycott and changed America. She faced job loss and death threats but stood firm for equality. She died in 2005 in Detroit. Her quiet strength moved the world.", 
+          quote: "I was tired of giving in." },
+        { name: "John F. Kennedy", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/JFK_in_Oval_Office.jpg/800px-JFK_in_Oval_Office.jpg", 
+          desc: "John F. Kennedy was born in 1917 in Brookline, USA. He was a young and inspiring president who led America during the Cold War and started the space race. He supported civil rights and created the Peace Corps to help people around the world. He was assassinated in 1963 in Dallas. His call to service and vision for a better world still motivate young people today.", 
+          quote: "Ask not what your country can do for you." },
+        { name: "Thomas Jefferson", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29.jpg/800px-Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29.jpg", 
+          desc: "Thomas Jefferson was born in 1743 in Shadwell, USA. He wrote the Declaration of Independence and helped create the United States. As president he made the Louisiana Purchase that doubled the size of the country. He believed strongly in education and freedom. He faced many political attacks but remained committed to his ideals. He died in 1826 at Monticello.", 
+          quote: "All men are created equal." },
+        { name: "Frederick Douglass", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Frederick_Douglass.jpg/800px-Frederick_Douglass.jpg", 
+          desc: "Frederick Douglass was born in 1818 in Talbot County, USA. He escaped slavery and became one of the most powerful abolitionist orators. He spoke and wrote against slavery and for equality for all. He advised presidents and fought for women's rights too. He risked being recaptured many times but never stopped his struggle. He died in 1895 in Washington D.C.", 
+          quote: "Power concedes nothing without a demand." },
+        { name: "Susan B. Anthony", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Susan_B._Anthony.jpg/800px-Susan_B._Anthony.jpg", 
+          desc: "Susan B. Anthony was born in 1820 in Adams, USA. She was a leader in the women's suffrage movement and fought for women's right to vote. She organized meetings and faced arrest for trying to vote. She dedicated her life to equality and justice. She died in 1906 in Rochester. Her work helped women finally get the vote years later.", 
+          quote: "Failure is impossible." },
+        { name: "Theodore Roosevelt", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Theodore_Roosevelt.jpg/800px-Theodore_Roosevelt.jpg", 
+          desc: "Theodore Roosevelt was born in 1858 in New York City, USA. He was a strong president who created many national parks and protected nature. He fought big businesses and promoted fair policies for ordinary people. He survived an assassination attempt and continued serving the nation. He died in 1919 in Oyster Bay. His energy and love for conservation are still remembered.", 
+          quote: "Speak softly and carry a big stick." }
+      ],
+      "South Africa": [
+        { name: "Nelson Mandela", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Nelson_Mandela-2008_%28edit%29.jpg/800px-Nelson_Mandela-2008_%28edit%29.jpg", 
+          desc: "Nelson Mandela was born in 1918 in Mvezo, South Africa. He was the anti-apartheid icon who led the long struggle against racial segregation. He spent 27 years in prison on Robben Island but never gave up his dream of a free and equal South Africa. After his release he worked for reconciliation and became the first black president. He ended apartheid and built a rainbow nation. He died in 2013 in Johannesburg.", 
+          quote: "It always seems impossible until it is done." },
+        { name: "Steve Biko", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Steve_Biko.jpg/800px-Steve_Biko.jpg", 
+          desc: "Steve Biko was born in 1946 in King William's Town, South Africa. He was the leader of the Black Consciousness Movement that inspired black pride and mental freedom from apartheid. He challenged the psychological effects of oppression and mobilized students. He was beaten to death in police custody in 1977. His words 'Black man, you are on your own' still empower people today.", 
+          quote: "Black man, you are on your own." },
+        { name: "Desmond Tutu", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Desmond_Tutu_%28cropped%29.jpg/800px-Desmond_Tutu_%28cropped%29.jpg", 
+          desc: "Desmond Tutu was born in 1931 in Klerksdorp, South Africa. He was the moral voice against apartheid and later led the Truth and Reconciliation Commission. He received the Nobel Peace Prize for his non-violent fight for justice. He faced repeated arrests and threats but always spoke truth to power. He died in 2021 in Cape Town. His message of forgiveness and equality remains powerful.", 
+          quote: "If you are neutral in situations of injustice, you have chosen the side of the oppressor." },
+        { name: "Chris Hani", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Chris_Hani.jpg/800px-Chris_Hani.jpg", 
+          desc: "Chris Hani was born in 1942 in Transkei, South Africa. He was a communist leader and chief of staff of the armed wing of the ANC. He mobilized youth for the struggle against apartheid. He was assassinated in 1993 just before democracy came. His death almost caused civil war, but his legacy of courage lives on. He is remembered as a true martyr of the freedom struggle.", 
+          quote: "The struggle continues." },
+        { name: "Albert Luthuli", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Albert_Luthuli.jpg/800px-Albert_Luthuli.jpg", 
+          desc: "Albert Luthuli was born in 1898 in Bulawayo, Rhodesia. He was the president of the African National Congress and a Nobel Peace Prize winner. He promoted non-violent resistance against apartheid and was banned and restricted for most of his life. He stood firm for justice and equality. He died in 1967 in Groutville. His life showed that moral courage can change history.", 
+          quote: "The road to freedom is via the cross." },
+        { name: "Oliver Tambo", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Oliver_Tambo.jpg/800px-Oliver_Tambo.jpg", 
+          desc: "Oliver Tambo was born in 1917 in Bizana, South Africa. He led the ANC in exile for 30 years and internationalized the anti-apartheid struggle. He built global solidarity and kept the movement alive when leaders were imprisoned. He returned to South Africa in 1990 and continued working for freedom. He died in 1993 in Johannesburg. His dedication helped bring democracy.", 
+          quote: "We shall return." },
+        { name: "Ruth First", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Ruth_First.jpg/800px-Ruth_First.jpg", 
+          desc: "Ruth First was born in 1925 in Johannesburg, South Africa. She was a journalist and academic who exposed apartheid atrocities through her writing. She was arrested many times and eventually killed by a letter bomb in 1982 while in exile in Maputo. Her brave scholarship and activism advanced the fight against injustice. Her truth-telling legacy lives on.", 
+          quote: "Truth is the first casualty of war." },
+        { name: "Walter Sisulu", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Walter_Sisulu.jpg/800px-Walter_Sisulu.jpg", 
+          desc: "Walter Sisulu was born in 1912 in Transkei, South Africa. He was a long-time ANC leader who organized resistance and spent 26 years in prison on Robben Island with Nelson Mandela. He never lost hope and continued guiding the movement even from behind bars. He died in 2003 in Johannesburg. His quiet strength and dedication helped bring freedom to South Africa.", 
+          quote: "Freedom is coming." },
+        { name: "Liliesleaf Farm Heroes", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Liliesleaf.jpg/800px-Liliesleaf.jpg", 
+          desc: "The Liliesleaf Farm Heroes were the activists arrested in the 1963 Rivonia Raid. They planned the armed struggle against apartheid and were sentenced to life imprisonment. Their courage in the Rivonia Trial brought international attention to the struggle. Many spent decades in prison but lived to see freedom. Their sacrifice advanced the liberation movement.", 
+          quote: "We will win." },
+        { name: "Helen Joseph", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Helen_Joseph.jpg/800px-Helen_Joseph.jpg", 
+          desc: "Helen Joseph was born in 1905 in Sussex, England, and became a key anti-apartheid activist in South Africa. She organized the 1956 women's march to Pretoria and stood with the oppressed for decades. She was placed under house arrest for years but never stopped fighting. She died in 1992 in Johannesburg. Her dedication showed that anyone can join the struggle for justice.", 
+          quote: "I stand with the oppressed." }
+      ],
+      "France": [
+        { name: "Joan of Arc", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Jeanne_d%27Arc.jpg/800px-Jeanne_d%27Arc.jpg", 
+          desc: "Joan of Arc was born in 1412 in Domrémy, France. She was a young peasant girl who heard voices from God and led the French army to victory in the Hundred Years' War. She inspired national unity and helped crown the king. She was captured and burned at the stake at the age of 19 in 1431. Her courage and faith made her a symbol of resistance and she was later declared a saint.", 
+          quote: "I am not afraid... I was born to do this." },
+        { name: "Napoleon Bonaparte", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Napoleon_Bonaparte.jpg/800px-Napoleon_Bonaparte.jpg", 
+          desc: "Napoleon Bonaparte was born in 1769 in Ajaccio, Corsica. He was a military genius who rose to become Emperor of France. He conquered much of Europe and spread revolutionary ideals. He created the Napoleonic Code that influenced legal systems worldwide. He was exiled twice and died in 1821 on Saint Helena. His ambition changed the map of Europe.", 
+          quote: "Victory belongs to the most persevering." },
+        { name: "Charles de Gaulle", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Charles_de_Gaulle.jpg/800px-Charles_de_Gaulle.jpg", 
+          desc: "Charles de Gaulle was born in 1890 in Lille, France. He led the Free French forces against Nazi occupation during World War II and later founded the Fifth Republic. He modernized France and gave it a strong voice in the world. He lived in exile during the war but returned to lead the nation. He died in 1970 in Colombey-les-Deux-Églises.", 
+          quote: "France has lost a battle but not the war." },
+        { name: "Marie Curie", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Marie_Curie.jpg/800px-Marie_Curie.jpg", 
+          desc: "Marie Curie was born in 1867 in Warsaw, Poland, and worked in France. She was the first woman to win a Nobel Prize and the only person to win two in different sciences for discovering radioactivity. She advanced science and opened doors for women in research. She died in 1934 from radiation exposure. Her dedication changed medicine and physics forever.", 
+          quote: "Nothing in life is to be feared, it is only to be understood." },
+        { name: "Victor Hugo", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Victor_Hugo.jpg/800px-Victor_Hugo.jpg", 
+          desc: "Victor Hugo was born in 1802 in Besançon, France. He was a literary giant who wrote Les Misérables and fought for social justice and the abolition of the death penalty. He lived 19 years in political exile but continued writing powerful works. He died in 1885 in Paris. His stories still touch hearts and inspire change.", 
+          quote: "Even the darkest night will end and the sun will rise." },
+        { name: "Emile Zola", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Emile_Zola.jpg/800px-Emile_Zola.jpg", 
+          desc: "Emile Zola was born in 1840 in Paris, France. He was a brave writer who defended truth in the Dreyfus Affair with his famous open letter 'J'Accuse'. He advanced literary naturalism and fought for justice. He was exiled and faced mob violence but never stopped. He died in 1902 in Paris. His courage showed that writers can change society.", 
+          quote: "The truth is on the march." },
+        { name: "Simone de Beauvoir", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Simone_de_Beauvoir.jpg/800px-Simone_de_Beauvoir.jpg", 
+          desc: "Simone de Beauvoir was born in 1908 in Paris, France. She was a feminist philosopher who wrote The Second Sex, which became the foundation of modern feminism. She explored what it means to be a woman in society. She faced constant criticism but stood firm for equality. She died in 1986 in Paris. Her ideas still shape how we think about gender.", 
+          quote: "One is not born, but rather becomes, a woman." },
+        { name: "Louis Pasteur", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Louis_Pasteur.jpg/800px-Louis_Pasteur.jpg", 
+          desc: "Louis Pasteur was born in 1822 in Dole, France. He was the father of microbiology who developed vaccines and pasteurization. His germ theory saved millions of lives. He dedicated his life to science and public health. He died in 1895 in Saint-Cloud. His work showed that science can serve humanity.", 
+          quote: "Science knows no country." },
+        { name: "Jean Moulin", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Jean_Moulin.jpg/800px-Jean_Moulin.jpg", 
+          desc: "Jean Moulin was born in 1899 in Béziers, France. He was a resistance hero who unified the French Resistance against Nazi occupation during World War II. He was tortured by the Gestapo but never talked. He died in 1943. His bravery helped France fight back and is remembered as a symbol of courage.", 
+          quote: "I will not talk." },
+        { name: "Olympe de Gouges", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Olympe_de_Gouges.jpg/800px-Olympe_de_Gouges.jpg", 
+          desc: "Olympe de Gouges was born in 1748 in Montauban, France. She was a women's rights pioneer who wrote the Declaration of the Rights of Woman during the French Revolution. She advocated for gender equality when few dared to. She was guillotined in 1793 during the Reign of Terror. Her courage laid early groundwork for women's rights.", 
+          quote: "Woman has the right to mount the scaffold." }
+      ],
+      "United Kingdom": [
+        { name: "Winston Churchill", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Winston_Churchill.jpg/800px-Winston_Churchill.jpg", 
+          desc: "Winston Churchill was born in 1874 in Blenheim Palace, UK. He was the leader who guided Britain through the darkest days of World War II. He gave powerful speeches that gave hope to the nation and the world. He mobilized the country for total war effort despite his own health struggles. He died in 1965 in London. His determination helped defeat Nazi Germany.", 
+          quote: "We shall never surrender." },
+        { name: "Queen Elizabeth I", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Elizabeth_I_%28Armada_Portrait%29.jpg/800px-Elizabeth_I_%28Armada_Portrait%29.jpg", 
+          desc: "Queen Elizabeth I was born in 1533 in Greenwich, UK. She ruled England for 44 years and defeated the Spanish Armada. She promoted arts, exploration, and religious tolerance. She never married and ruled alone under constant threat of assassination. She died in 1603 in Richmond. She is remembered as Gloriana, one of England's greatest monarchs.", 
+          quote: "I know I have the body of a weak woman..." },
+        { name: "William Shakespeare", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/William_Shakespeare.jpg/800px-William_Shakespeare.jpg", 
+          desc: "William Shakespeare was born in 1564 in Stratford-upon-Avon, UK. He is the greatest playwright in history who wrote Hamlet, Romeo and Juliet, and many other masterpieces. His works explored human nature and shaped the English language. He lived through plague and faced censorship but continued creating. He died in 1616 in Stratford. His stories are still performed worldwide.", 
+          quote: "To be or not to be." },
+        { name: "Florence Nightingale", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Florence_Nightingale.jpg/800px-Florence_Nightingale.jpg", 
+          desc: "Florence Nightingale was born in 1820 in Florence, Italy, and worked in Britain. She revolutionized nursing during the Crimean War and became known as the Lady with the Lamp. She improved hospital hygiene and founded modern nursing. She suffered chronic illness from her service but never stopped working for better health care. She died in 1910 in London.", 
+          quote: "Let us never consider ourselves finished nurses." },
+        { name: "Horatio Nelson", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Horatio_Nelson.jpg/800px-Horatio_Nelson.jpg", 
+          desc: "Horatio Nelson was born in 1758 in Burnham Thorpe, UK. He was a naval hero who won the Battle of Trafalgar against Napoleon. He innovated naval tactics and inspired great loyalty in his sailors. He lost an arm and an eye in battle and died at Trafalgar in 1805. His famous signal 'England expects that every man will do his duty' is still remembered.", 
+          quote: "England expects that every man will do his duty." },
+        { name: "Isaac Newton", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Isaac_Newton.jpg/800px-Isaac_Newton.jpg", 
+          desc: "Isaac Newton was born in 1643 in Woolsthorpe, UK. He was a scientific genius who discovered the laws of motion and gravity. He laid the foundation of classical physics. He worked in isolation during the plague years and made groundbreaking discoveries. He died in 1727 in London. His work changed how we understand the universe.", 
+          quote: "If I have seen further, it is by standing on the shoulders of giants." },
+        { name: "Margaret Thatcher", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Margaret_Thatcher.jpg/800px-Margaret_Thatcher.jpg", 
+          desc: "Margaret Thatcher was born in 1925 in Grantham, UK. She was the first female Prime Minister and known as the Iron Lady. She transformed the British economy through privatization and strong leadership. She survived an assassination attempt but continued serving. She died in 2013 in London. Her determination changed Britain.", 
+          quote: "If you want something done, ask a woman." },
+        { name: "Ada Lovelace", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Ada_Lovelace.jpg/800px-Ada_Lovelace.jpg", 
+          desc: "Ada Lovelace was born in 1815 in London, UK. She was the first computer programmer who wrote the first algorithm for a machine. She saw the potential of computers beyond calculation. She faced health issues from an early age but made pioneering contributions to computing. She died in 1852 in London. Her vision helped create the digital world we live in today.", 
+          quote: "The Analytical Engine weaves..." },
+        { name: "Emmeline Pankhurst", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Emmeline_Pankhurst.jpg/800px-Emmeline_Pankhurst.jpg", 
+          desc: "Emmeline Pankhurst was born in 1858 in Manchester, UK. She was the leader of the suffragette movement that fought for women's right to vote. She organized protests and faced multiple imprisonments and hunger strikes. She dedicated her life to equality. She died in 1928 in London. Her 'Deeds, not words' approach helped women win the vote.", 
+          quote: "Deeds, not words." },
+        { name: "Alan Turing", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Alan_Turing.jpg/800px-Alan_Turing.jpg", 
+          desc: "Alan Turing was born in 1912 in London, UK. He was the father of computer science who broke the Enigma code during World War II, helping defeat Nazi Germany. He laid the foundation for modern computing and artificial intelligence. He was persecuted for his homosexuality and chemically castrated. He died in 1954 in Wilmslow. His work changed the world.", 
+          quote: "Sometimes it is the people who no one imagines anything of..." }
+      ],
+      "Japan": [
+        { name: "Sakamoto Ryoma", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Sakamoto_Ryoma.jpg/800px-Sakamoto_Ryoma.jpg", 
+          desc: "Sakamoto Ryoma was born in 1836 in Kochi, Japan. He was a key figure in the Meiji Restoration who helped overthrow the Tokugawa shogunate. He worked to modernize Japan and bring it into the modern world. He was assassinated at the age of 31 in 1867 in Kyoto. His vision and courage helped Japan become a strong modern nation.", 
+          quote: "We must change the world with our own hands." },
+        { name: "Oda Nobunaga", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Oda_Nobunaga.jpg/800px-Oda_Nobunaga.jpg", 
+          desc: "Oda Nobunaga was born in 1534 in Owari, Japan. He was a powerful warlord who began the unification of Japan. He promoted meritocracy and destroyed old power structures. He was betrayed by his own general and forced to commit seppuku in 1582 in Kyoto. His bold leadership changed Japan's history.", 
+          quote: "Rule with an iron fist wrapped in velvet." },
+        { name: "Emperor Meiji", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Emperor_Meiji.jpg/800px-Emperor_Meiji.jpg", 
+          desc: "Emperor Meiji was born in 1852 in Kyoto, Japan. He oversaw the Meiji Restoration that modernized Japan and adopted Western systems. He industrialized the country and strengthened the military. He carried the heavy burden of rapid national transformation. He died in 1912 in Tokyo. His reign brought Japan into the modern era.", 
+          quote: "Enrich the country, strengthen the military." },
+        { name: "Kusunoki Masashige", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Kusunoki_Masashige.jpg/800px-Kusunoki_Masashige.jpg", 
+          desc: "Kusunoki Masashige was born in 1294 in Japan. He was a loyal samurai who defended the Emperor against rebels. He exemplified the bushido code of absolute loyalty. He died in a heroic last stand in 1336 at Minatogawa. His story of loyalty is still told as an example of true samurai spirit.", 
+          quote: "I will return seven times to serve my emperor." },
+        { name: "Hiroo Onoda", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Hiroo_Onoda.jpg/800px-Hiroo_Onoda.jpg", 
+          desc: "Hiroo Onoda was born in 1922 in Kainan, Japan. He continued fighting World War II until 1974, refusing to believe the war was over. He lived in the jungle for 29 years, showing unwavering duty. He became a symbol of perseverance. He died in 2014 in Tokyo. His story teaches the meaning of loyalty and duty.", 
+          quote: "Duty is heavier than a mountain." },
+        { name: "Yukio Mishima", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Yukio_Mishima.jpg/800px-Yukio_Mishima.jpg", 
+          desc: "Yukio Mishima was born in 1925 in Tokyo, Japan. He was a famous writer who called for the revival of samurai spirit and traditional values. He wrote many novels and plays. In 1970 he committed ritual seppuku after a failed coup attempt. His life and death were dramatic expressions of his beliefs about beauty and courage.", 
+          quote: "Beauty is a form of courage." },
+        { name: "Empress Michiko", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Empress_Michiko.jpg/800px-Empress_Michiko.jpg", 
+          desc: "Empress Michiko was born in 1934 in Tokyo, Japan. She brought warmth and accessibility to the Japanese monarchy as the first commoner to marry into the imperial family. She worked for reconciliation and peace. She faced severe stress and health issues from royal duties but continued serving with grace. She remains a symbol of the people's empress.", 
+          quote: "Peace begins in the heart." },
+        { name: "Tokugawa Ieyasu", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Tokugawa_Ieyasu.jpg/800px-Tokugawa_Ieyasu.jpg", 
+          desc: "Tokugawa Ieyasu was born in 1543 in Okazaki, Japan. He unified Japan under the Tokugawa Shogunate and brought a long period of peace after years of warfare. He established stable rule and laid the foundation for the Edo period. He died in 1616 in Shizuoka. His strategic patience changed Japan's history.", 
+          quote: "To come to know your enemy..." },
+        { name: "Murasaki Shikibu", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Murasaki_Shikibu.jpg/800px-Murasaki_Shikibu.jpg", 
+          desc: "Murasaki Shikibu was born in 978 in Kyoto, Japan. She wrote The Tale of Genji, which is considered the world's first novel. She explored human emotions and court life in her writing. She lived under strict court constraints but created timeless literature. She died in 1014 in Kyoto. Her work is still studied and admired worldwide.", 
+          quote: "The world is full of sorrow." },
+        { name: "Emperor Hirohito", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Emperor_Hirohito.jpg/800px-Emperor_Hirohito.jpg", 
+          desc: "Emperor Hirohito was born in 1901 in Tokyo, Japan. He guided Japan through World War II and its surrender, then helped the country recover and become a modern democracy. He renounced his divinity after the war. He navigated the difficult transition from war to peace. He died in 1989 in Tokyo. His long reign saw Japan rise again.", 
+          quote: "Endure the unendurable." }
+      ],
+      "Brazil": [
+        { name: "Tiradentes", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Tiradentes.jpg/800px-Tiradentes.jpg", 
+          desc: "Tiradentes was born in 1746 in Pombal, Brazil. He was an independence martyr who led the Inconfidência Mineira revolt against Portuguese colonial rule. He fought for Brazilian freedom and was hanged and quartered in 1792 in Rio de Janeiro. His sacrifice inspired later generations in the fight for independence.", 
+          quote: "The time has come for Brazil to be free." },
+        { name: "Dom Pedro I", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Dom_Pedro_I.jpg/800px-Dom_Pedro_I.jpg", 
+          desc: "Dom Pedro I was born in 1798 in Lisbon, Portugal. He declared Brazil's independence from Portugal and became the first Emperor. He established the Brazilian Empire and worked for its stability. He later abdicated the throne. He died in 1834 in Lisbon. His famous cry 'Independence or Death!' marked the birth of modern Brazil.", 
+          quote: "Independence or Death!" },
+        { name: "Princess Isabel", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Princess_Isabel.jpg/800px-Princess_Isabel.jpg", 
+          desc: "Princess Isabel was born in 1846 in Rio de Janeiro, Brazil. She signed the Golden Law in 1888 that ended slavery in Brazil. She faced strong opposition from landowners but stood firm for justice. She lived in exile after the monarchy was overthrown. She died in 1921 in Eu, France. Her act freed millions and changed Brazil forever.", 
+          quote: "Slavery is a crime against humanity." },
+        { name: "Getúlio Vargas", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Getulio_Vargas.jpg/800px-Getulio_Vargas.jpg", 
+          desc: "Getúlio Vargas was born in 1882 in São Borja, Brazil. He modernized Brazil and introduced labor rights and industrialization. He served as president for many years and shaped modern Brazil. He committed suicide in 1954 amid political crisis. His famous words 'I leave life to enter history' showed his dedication to the nation.", 
+          quote: "I leave life to enter history." },
+        { name: "Chico Mendes", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Chico_Mendes.jpg/800px-Chico_Mendes.jpg", 
+          desc: "Chico Mendes was born in 1944 in Xapuri, Brazil. He was an environmental martyr who defended the Amazon rainforest and the rights of rubber tappers. He fought against deforestation and for workers' rights. He was assassinated in 1988. His work brought international attention to the Amazon and environmental justice.", 
+          quote: "At first I thought I was fighting to save rubber trees..." },
+        { name: "Zumbi dos Palmares", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Zumbi_dos_Palmares.jpg/800px-Zumbi_dos_Palmares.jpg", 
+          desc: "Zumbi dos Palmares was born in 1655 in Palmares, Brazil. He was the leader of the Quilombo dos Palmares, a free black community that resisted slavery. He fought bravely against Portuguese forces. He was killed in battle in 1695. He became a symbol of resistance and freedom for black people in Brazil.", 
+          quote: "Freedom is not given, it is taken." },
+        { name: "Machado de Assis", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Machado_de_Assis.jpg/800px-Machado_de_Assis.jpg", 
+          desc: "Machado de Assis was born in 1839 in Rio de Janeiro, Brazil. He is considered the greatest Brazilian writer. He wrote Memórias Póstumas de Brás Cubas and many other masterpieces. He overcame poverty and racism to create timeless literature. He died in 1908 in Rio de Janeiro. His works are still read and admired around the world.", 
+          quote: "The best way to forget is to remember." },
+        { name: "Oscar Niemeyer", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Oscar_Niemeyer.jpg/800px-Oscar_Niemeyer.jpg", 
+          desc: "Oscar Niemeyer was born in 1907 in Rio de Janeiro, Brazil. He was the famous architect who designed Brasília and many iconic modernist buildings. His curved and bold designs became symbols of modern Brazil. He was exiled during the military dictatorship but returned to continue his work. He died in 2012 in Rio de Janeiro.", 
+          quote: "Form follows beauty." },
+        { name: "Santos Dumont", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Santos_Dumont.jpg/800px-Santos_Dumont.jpg", 
+          desc: "Santos Dumont was born in 1873 in Palmira, Brazil. He is known as the father of aviation for inventing the practical airplane. He made many pioneering flights and contributed to early aviation. He suffered mental health struggles later in life. He died in 1932 in São Paulo. His inventions helped make air travel possible.", 
+          quote: "I never thought of myself as a hero." },
+        { name: "Carmen Miranda", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Carmen_Miranda.jpg/800px-Carmen_Miranda.jpg", 
+          desc: "Carmen Miranda was born in 1909 in Marco de Canaveses, Portugal, and became a symbol of Brazil. She popularized Brazilian music and culture worldwide with her energetic performances and fruit hats. She brought global recognition to Brazil. She died in 1955 in Beverly Hills. She remains an icon of Brazilian joy and culture.", 
+          quote: "I am Brazilian and I am proud." }
+      ],
+      "Mexico": [
+        { name: "Miguel Hidalgo", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Miguel_Hidalgo.jpg/800px-Miguel_Hidalgo.jpg", 
+          desc: "Miguel Hidalgo was born in 1753 in Pénjamo, Mexico. He was the father of Mexican independence who gave the famous Grito de Dolores cry in 1810. He started the war against Spanish colonial rule and fought for freedom and equality. He was captured and executed by Spanish forces in 1811 in Chihuahua. His call for independence sparked the Mexican Revolution.", 
+          quote: "Long live independence!" },
+        { name: "Josefa Ortiz de Domínguez", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Josefa_Ortiz_de_Dom%C3%ADnguez.jpg/800px-Josefa_Ortiz_de_Dom%C3%ADnguez.jpg", 
+          desc: "Josefa Ortiz de Domínguez was born in 1768 in Mexico City, Mexico. She was known as La Corregidora for warning the revolutionaries of danger during the independence movement. She supported the fight for freedom and was imprisoned for her role. She died in 1824 in Mexico City. Her courage helped the independence struggle succeed.", 
+          quote: "The homeland is first." },
+        { name: "Benito Juárez", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Benito_Ju%C3%A1rez.jpg/800px-Benito_Ju%C3%A1rez.jpg", 
+          desc: "Benito Juárez was born in 1806 in San Pablo Guelatao, Mexico. He was a reform president who led Mexico during the Reform War and against French invasion. He passed the Laws of Reform that separated church and state and promoted equality. He died in 1872 in Mexico City. He is remembered as a symbol of indigenous pride and justice.", 
+          quote: "Respect for the rights of others is peace." },
+        { name: "Emiliano Zapata", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Emiliano_Zapata.jpg/800px-Emiliano_Zapata.jpg", 
+          desc: "Emiliano Zapata was born in 1879 in Anenecuilco, Mexico. He was a leader of the Mexican Revolution who fought for land reform and 'Land and Liberty'. He issued the Plan de Ayala for redistribution of land to peasants. He was assassinated in 1919 in Chinameca. His cry 'It is better to die on your feet than to live on your knees' still inspires people fighting for justice.", 
+          quote: "It is better to die on your feet than to live on your knees." },
+        { name: "Pancho Villa", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Pancho_Villa.jpg/800px-Pancho_Villa.jpg", 
+          desc: "Pancho Villa was born in 1878 in Durango, Mexico. He was a revolutionary general who fought for the poor during the Mexican Revolution. He led bold raids and supported agrarian reform. He was assassinated in 1923 in Parral. His larger-than-life personality and fight for the common people made him a folk hero in Mexico.", 
+          quote: "The land belongs to those who work it." },
+        { name: "Frida Kahlo", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Frida_Kahlo.jpg/800px-Frida_Kahlo.jpg", 
+          desc: "Frida Kahlo was born in 1907 in Coyoacán, Mexico. She was an iconic artist who created powerful self-portraits that expressed her pain, identity, and Mexican culture. She faced lifelong physical pain from an accident but turned it into art. She died in 1954 in Coyoacán. Her work is celebrated worldwide for its honesty and strength.", 
+          quote: "I paint my own reality." },
+        { name: "Sor Juana Inés de la Cruz", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Sor_Juana_In%C3%A9s_de_la_Cruz.jpg/800px-Sor_Juana_In%C3%A9s_de_la_Cruz.jpg", 
+          desc: "Sor Juana Inés de la Cruz was born in 1648 in San Miguel Nepantla, Mexico. She was a scholar, poet, and nun who advocated for women's education and intellectual freedom in colonial Mexico. She wrote powerful works defending women's right to think and learn. She was forced to give up her books but her legacy lived on. She died in 1695 in Mexico City.", 
+          quote: "I am a woman and I think." },
+        { name: "Cuauhtémoc", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Cuauht%C3%A9moc.jpg/800px-Cuauht%C3%A9moc.jpg", 
+          desc: "Cuauhtémoc was born in 1496 in Mexico. He was the last Aztec Emperor who bravely defended Tenochtitlan against the Spanish conquest. He fought with courage and became a symbol of indigenous resistance. He was tortured and executed by the Spanish in 1525. His spirit of defiance is still honored in Mexico.", 
+          quote: "I will not surrender." },
+        { name: "Lázaro Cárdenas", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/L%C3%A1zaro_C%C3%A1rdenas.jpg/800px-L%C3%A1zaro_C%C3%A1rdenas.jpg", 
+          desc: "Lázaro Cárdenas was born in 1895 in Jiquilpan, Mexico. He was a president who nationalized the oil industry and carried out major land redistribution. He stood up to powerful foreign interests and worked for the benefit of ordinary Mexicans. He died in 1970 in Mexico City. His reforms helped build a stronger and more independent Mexico.", 
+          quote: "The oil belongs to the nation." },
+        { name: "Octavio Paz", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Octavio_Paz.jpg/800px-Octavio_Paz.jpg", 
+          desc: "Octavio Paz was born in 1914 in Mexico City, Mexico. He was a Nobel Prize-winning poet and essayist who explored Mexican identity in works like The Labyrinth of Solitude. He resigned from government positions when he disagreed with policies. He died in 1998 in Mexico City. His writing helped the world understand Mexico's complex culture.", 
+          quote: "Love is the only force that can conquer death." }
+      ],
+      "China": [
+        { name: "Sun Yat-sen", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Sun_Yat-sen.jpg/800px-Sun_Yat-sen.jpg", 
+          desc: "Sun Yat-sen was born in 1866 in Cuiheng, China. He is known as the Father of Modern China and led the Revolution of 1911 that ended imperial rule. He developed the Three Principles of the People — nationalism, democracy, and people's livelihood. He lived in exile for many years but never gave up. He died in 1925 in Beijing. His vision laid the foundation for modern China.", 
+          quote: "The revolution has not yet succeeded." },
+        { name: "Mao Zedong", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Mao_Zedong.jpg/800px-Mao_Zedong.jpg", 
+          desc: "Mao Zedong was born in 1893 in Shaoshan, China. He was the founding father of the People's Republic of China who led the Long March and the Communist Revolution. He carried out land reform and built a new China. He died in 1976 in Beijing. His leadership transformed China from a weak nation into a major power.", 
+          quote: "Political power grows out of the barrel of a gun." },
+        { name: "Deng Xiaoping", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Deng_Xiaoping.jpg/800px-Deng_Xiaoping.jpg", 
+          desc: "Deng Xiaoping was born in 1904 in Guang'an, China. He was the architect of modern China who opened the country to the world and introduced economic reforms. He was purged twice during the Cultural Revolution but returned to lead. He died in 1997 in Beijing. His pragmatic approach 'It doesn't matter if the cat is black or white' brought prosperity to millions.", 
+          quote: "It doesn't matter if the cat is black or white..." },
+        { name: "Qiu Jin", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Qiu_Jin.jpg/800px-Qiu_Jin.jpg", 
+          desc: "Qiu Jin was born in 1875 in Shaoxing, China. She was a female revolutionary who fought for women's rights and against the Qing dynasty. She advocated gender equality and revolution. She was executed in 1907 in Shaoxing. Her courage inspired many women to join the struggle for a better China.", 
+          quote: "Don't regret that you were born a woman..." },
+        { name: "Zhou Enlai", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Zhou_Enlai.jpg/800px-Zhou_Enlai.jpg", 
+          desc: "Zhou Enlai was born in 1898 in Huai'an, China. He was a key leader in the revolution and served as Premier for many years. He was known for his diplomacy and worked tirelessly for China. He died in 1976 in Beijing. His dedication and service to the people made him one of the most respected leaders.", 
+          quote: "Serve the people." },
+        { name: "Soong Ching-ling", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Soong_Ching-ling.jpg/800px-Soong_Ching-ling.jpg", 
+          desc: "Soong Ching-ling was born in 1893 in Shanghai, China. She was the wife of Sun Yat-sen and a revolutionary stateswoman who promoted women's rights and supported the new China. She chose revolution over family comfort. She died in 1981 in Beijing. Her life showed dedication to the nation's progress.", 
+          quote: "The future belongs to the people." },
+        { name: "Lei Feng", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Lei_Feng.jpg/800px-Lei_Feng.jpg", 
+          desc: "Lei Feng was born in 1940 in Changsha, China. He became a model citizen known for his selfless service and helping others. His diary inspired millions to serve the people. He died young in an accident in 1962 in Anshan. His spirit of 'Serve the people wholeheartedly' is still taught in China today.", 
+          quote: "Serve the people wholeheartedly." },
+        { name: "Confucius", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Confucius.jpg/800px-Confucius.jpg", 
+          desc: "Confucius was born in 551 BC in Qufu, China. He was the great teacher whose ideas about moral behavior, respect, and social order shaped East Asian culture for thousands of years. He wandered in exile teaching his philosophy. He died in 479 BC in Qufu. His teachings still guide millions of people today.", 
+          quote: "It does not matter how slowly you go..." },
+        { name: "Qin Shi Huang", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Qin_Shi_Huang.jpg/800px-Qin_Shi_Huang.jpg", 
+          desc: "Qin Shi Huang was born in 259 BC in Handan, China. He was the first Emperor who unified China, standardized writing and measurements, and began building the Great Wall. He feared death and built the terracotta army. He died in 210 BC in Shaqiu. His unification laid the foundation for the Chinese empire.", 
+          quote: "I am the First Emperor." },
+        { name: "Empress Wu Zetian", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Wu_Zetian.jpg/800px-Wu_Zetian.jpg", 
+          desc: "Empress Wu Zetian was born in 624 in Guangyuan, China. She was the only female emperor in Chinese history who ruled during the Tang Dynasty. She promoted meritocracy and Buddhism and strengthened the empire. She faced intense opposition because she was a woman but ruled wisely. She died in 705 in Luoyang.", 
+          quote: "I will rule with wisdom." }
+      ]
+    };
+
+    let currentCountry = "Nepal";
+
+    function generateCountryTabs() {
+      const container = document.getElementById('countryTabs');
+      container.innerHTML = '';
+      Object.keys(heroesData).forEach(country => {
+        const active = country === currentCountry ? 'bg-[#d4a017] text-[#3c2f1e] font-bold' : 'bg-[#2c2118] hover:bg-[#8c6f4e]';
+        const btn = document.createElement('button');
+        btn.className = `px-8 py-3 rounded-full text-lg transition-all border border-[#8c6f4e] ${active}`;
+        btn.textContent = country;
+        btn.onclick = () => { currentCountry = country; generateCountryTabs(); generateHeroes(); };
+        container.appendChild(btn);
+      });
+    }
+
+    function generateHeroes() {
+      const container = document.getElementById('heroesGrid');
+      container.innerHTML = '';
+      const heroes = heroesData[currentCountry] || [];
+      heroes.forEach(hero => {
+        const html = `
+          <div onclick="showHeroModal('${currentCountry}', '${hero.name}')" class="card rounded-2xl overflow-hidden cursor-pointer">
+            <div class="relative">
+              <img src="${hero.image}" class="w-full h-60 object-cover" onerror="this.src='https://picsum.photos/id/1015/800/600';">
+              <div class="absolute top-4 left-4 bg-black/70 px-4 py-1 rounded text-sm text-white">${currentCountry}</div>
+            </div>
+            <div class="p-6">
+              <h4 class="vintage-text text-2xl text-[#d4a017]">${hero.name}</h4>
+              <p class="text-[#8c6f4e] mt-1 line-clamp-2">Click to read the full story...</p>
+            </div>
+          </div>
+        `;
+        container.innerHTML += html;
+      });
+    }
+
+    function showHeroModal(country, name) {
+      const hero = heroesData[country].find(h => h.name === name);
+      if (!hero) return;
+
+      document.getElementById('modalImage').src = hero.image;
+      document.getElementById('modalCountry').innerHTML = `${country} • ${name}`;
+      document.getElementById('modalName').textContent = hero.name;
+      document.getElementById('modalDesc').innerHTML = `<p class="leading-relaxed">${hero.desc}</p>`;
+      document.getElementById('modalQuote').textContent = `"${hero.quote}"`;
+
+      document.getElementById('heroModal').classList.remove('hidden');
+      document.getElementById('heroModal').classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('heroModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function speakWelcome() {
+      if ('speechSynthesis' in window) {
+        const msg = new SpeechSynthesisUtterance("Welcome to the uncovered truth.");
+        msg.pitch = 0.7; msg.rate = 0.9; msg.volume = 1.0;
+        speechSynthesis.speak(msg);
+      }
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert("✅ Thank you! Your message has been received. We will reply to kunwargaurav832@gmail.com soon.\nSuggestions for new countries or heroes are welcome!");
+      e.target.reset();
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    window.onload = function() {
+      generateCountryTabs();
+      generateHeroes();
+      setTimeout(speakWelcome, 1200);
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    };
+  </script>
+</body>
+</html>
